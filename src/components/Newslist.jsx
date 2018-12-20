@@ -6,34 +6,28 @@ class Cmtlist extends Component{
     constructor(props){
         super(props)
         this.state={
-            articles:[],  //新闻列表
-            author:[],  //用户信息
             details:[], //新闻id，新闻标题，用户名
             page:1
         }
     }
-    
 
-    componentDidMount() {
+    accessToResources(){
         const url =`https://jsonplaceholder.typicode.com/posts?_limit=10&_page=${this.state.page}`
         fetch(url, {method: 'GET'})
             .then(res=>res.json())
-            .then(res=>{this.setState({articles:res})
-                res.map((entry, index) => {
+            .then(res=>{res.forEach((entry, index) => {
                     const url = `https://jsonplaceholder.typicode.com/users/${entry.userId}`
                     fetch(url, {method: 'GET'})
                         .then(res=>res.json())
-                        .then(res=>{this.setState({author:res})
-                        var user={
-                            id: entry.id,
-                            title: entry.title,
-                            body: entry.body,
-                            name: res.name
-                        }
-                    this.setState({details: this.state.details.concat(user)})
+                        .then(res=>{entry.name=res.name
+                        this.setState({details: this.state.details.concat(entry)})
                 })})})
     }
-    
+
+    componentDidMount() {
+        this.accessToResources()
+    }
+
     async show(i){
         const page=this.state.page
         if (i==false && page>1){
@@ -41,14 +35,14 @@ class Cmtlist extends Component{
             page: page - 1,
             details:[]
         })
-            this.componentDidMount()
+            this.accessToResources()
         }
         if(i==true && page<10){
             await this.setState({
                 page: page + 1,
                 details:[]
             })
-            this.componentDidMount()
+            this.accessToResources()
         }
     }
 
