@@ -43,7 +43,7 @@ class Cmtlist extends Component{
         })
             this.componentDidMount()
         }
-        if(i==true && page<13){
+        if(i==true && page<10){
             await this.setState({
                 page: page + 1,
                 details:[]
