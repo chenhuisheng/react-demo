@@ -2,8 +2,16 @@ import React, { Component } from 'react';
 import {Link} from '@reach/router';
 
 
+interface Variable{
+    userId: number
+    name: string
+    id: number
+    title: string
+    i: boolean
+}
+
 class Cmtlist extends Component<any, any>{
-    constructor(props:any){
+    constructor(props: any){
         super(props)
         this.state={
             details:[], //新闻id，新闻标题，用户名
@@ -15,7 +23,7 @@ class Cmtlist extends Component<any, any>{
         const url =`https://jsonplaceholder.typicode.com/posts?_limit=10&_page=${this.state.page}`
         fetch(url, {method: 'GET'})
             .then(res=>res.json())
-            .then(res=>{res.forEach((entry:any, index:any) => {
+            .then(res=>{res.forEach((entry :Variable, index :Variable) => {
                     const url = `https://jsonplaceholder.typicode.com/users/${entry.userId}`
                     fetch(url, {method: 'GET'})
                         .then(res=>res.json())
@@ -28,7 +36,7 @@ class Cmtlist extends Component<any, any>{
         this.accessToResources()
     }
 
-    async show(i:any){
+    async show(i:boolean){
         const page=this.state.page
         if (i==false && page>1){
             await this.setState({
@@ -50,11 +58,11 @@ class Cmtlist extends Component<any, any>{
         var i
         const details=this.state.details;
         const page=this.state.page;
-        const detail=details.map((entry:any, index:any) => {
+        const detail=details.map((entry :Variable, index :Variable) => {
             return  (
-                <div key={index}>
+                <div key={entry.id}>
                 <li>作者: {entry.name}</li>
-                    <li key={index}>
+                    <li key={entry.id}>
                         <Link to={`/Detail/${entry.id}`}>标题: {entry.title} {entry.id}</Link>
                     </li>
                     <p></p>
