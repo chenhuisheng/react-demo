@@ -1,12 +1,27 @@
 import React, {Component} from 'react';
-import {Link} from '@reach/router';
+import {Link, RouteComponentProps} from '@reach/router';
 
+interface Post{
+    title: string
+    body: string
+    id: number
+}
 
-class Detail extends Component<any, any> {
+interface Comment{
+    email: string
+    id: number
+    body: string
+}
+
+interface Route{
+    id: number
+}
+
+class Detail extends Component<RouteComponentProps<Route>, {articles: Partial<Post>, comments: Comment[]}> {
     constructor(props:any) {
     super(props)
     this.state={
-        articles:[],
+        articles:{},
         comments:[]
     }
     }
@@ -25,12 +40,11 @@ class Detail extends Component<any, any> {
     render() {
         const comments=this.state.comments;
         const articles=this.state.articles;
-        console.log(articles.title)
-        const comment=comments.map((entry:any, index:any) => {
+        const comment=comments.map((entry) => {
             return  (
-                <div key={index}>
+                <div key={entry.id}>
                 <li>邮箱: {entry.email}</li>
-                    <li key={index}>
+                    <li key={entry.id}>
                         评论内容: {entry.body}
                     </li>
                     <p></p>
@@ -41,10 +55,10 @@ class Detail extends Component<any, any> {
             <div>
                 <Link to={`/`}>返回</Link>
                 <h2>标题: {articles.title}</h2>
-                <h4>内容: {articles.body}</h4>
-                <p></p>
-                <p></p>
-                <h3>评论内容</h3>
+                    <h4>内容: {articles.body}</h4>
+                    <p></p>
+                    <p></p>
+                    <h3>评论内容</h3>
                 <p></p>
                 <ul>{comment}</ul>
             </div>

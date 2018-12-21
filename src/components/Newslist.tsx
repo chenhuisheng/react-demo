@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import {Link} from '@reach/router';
+import {Link, RouteComponentProps} from '@reach/router';
 
 
-interface Variable{
+interface Post{
     userId: number
     name: string
     id: number
@@ -10,12 +10,12 @@ interface Variable{
     i: boolean
 }
 
-class Cmtlist extends Component<any, any>{
+class Cmtlist extends Component<RouteComponentProps, {details: Post[], page: number}>{
     constructor(props: any){
         super(props)
         this.state={
             details:[], //新闻id，新闻标题，用户名
-            page:1
+            page:1,
         }
     }
 
@@ -23,7 +23,7 @@ class Cmtlist extends Component<any, any>{
         const url =`https://jsonplaceholder.typicode.com/posts?_limit=10&_page=${this.state.page}`
         fetch(url, {method: 'GET'})
             .then(res=>res.json())
-            .then(res=>{res.forEach((entry :Variable, index :Variable) => {
+            .then(res=>{res.forEach((entry :Post) => {
                     const url = `https://jsonplaceholder.typicode.com/users/${entry.userId}`
                     fetch(url, {method: 'GET'})
                         .then(res=>res.json())
@@ -58,7 +58,7 @@ class Cmtlist extends Component<any, any>{
         var i
         const details=this.state.details;
         const page=this.state.page;
-        const detail=details.map((entry :Variable, index :Variable) => {
+        const detail=details.map((entry) => {
             return  (
                 <div key={entry.id}>
                 <li>作者: {entry.name}</li>
