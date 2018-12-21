@@ -2,8 +2,8 @@ import React, {Component} from 'react';
 import {Link} from '@reach/router';
 
 
-class Detail extends Component {
-    constructor(props) {
+class Detail extends Component<any, any> {
+    constructor(props:any) {
     super(props)
     this.state={
         articles:[],
@@ -26,7 +26,7 @@ class Detail extends Component {
         const comments=this.state.comments;
         const articles=this.state.articles;
         console.log(articles.title)
-        const comment=comments.map((entry, index) => {
+        const comment=comments.map((entry:any, index:any) => {
             return  (
                 <div key={index}>
                 <li>邮箱: {entry.email}</li>

@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import {Link} from '@reach/router';
 
 
-class Cmtlist extends Component{
-    constructor(props){
+class Cmtlist extends Component<any, any>{
+    constructor(props:any){
         super(props)
         this.state={
             details:[], //新闻id，新闻标题，用户名
@@ -15,7 +15,7 @@ class Cmtlist extends Component{
         const url =`https://jsonplaceholder.typicode.com/posts?_limit=10&_page=${this.state.page}`
         fetch(url, {method: 'GET'})
             .then(res=>res.json())
-            .then(res=>{res.forEach((entry, index) => {
+            .then(res=>{res.forEach((entry:any, index:any) => {
                     const url = `https://jsonplaceholder.typicode.com/users/${entry.userId}`
                     fetch(url, {method: 'GET'})
                         .then(res=>res.json())
@@ -28,7 +28,7 @@ class Cmtlist extends Component{
         this.accessToResources()
     }
 
-    async show(i){
+    async show(i:any){
         const page=this.state.page
         if (i==false && page>1){
             await this.setState({
@@ -50,7 +50,7 @@ class Cmtlist extends Component{
         var i
         const details=this.state.details;
         const page=this.state.page;
-        const detail=details.map((entry, index) => {
+        const detail=details.map((entry:any, index:any) => {
             return  (
                 <div key={index}>
                 <li>作者: {entry.name}</li>
