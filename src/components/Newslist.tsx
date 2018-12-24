@@ -63,7 +63,7 @@ class Cmtlist extends Component<RouteComponentProps, {details: Post[], page: num
                 <div key={entry.id}>
                 <li>作者: {entry.name}</li>
                     <li key={entry.id}>
-                        <Link to={`/Detail/${entry.id}`}>标题: {entry.title} {entry.id}</Link>
+                        <Link to={`/Detail/${entry.id}`}>标题: {entry.title}</Link>
                     </li>
                     <p></p>
                 </div>
